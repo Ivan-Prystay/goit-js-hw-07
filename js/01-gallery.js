@@ -27,7 +27,7 @@ function openModalWindow(event) {
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  //  console.log("CLICK");
+  console.log("CLICK");
   createOriginalImg();
 }
 
@@ -37,9 +37,12 @@ function createOriginalImg() {
 `);
   instance.show();
 
-  galleryRef.addEventListener("keydown", (event) => {
+  galleryRef.addEventListener("keydown", closeModalWindow);
+  function closeModalWindow(event) {
     if (event.code === "Escape") {
       instance.close();
+      galleryRef.removeEventListener("keydown", closeModalWindow);
+      console.log("event.code: ", event.code);
     }
-  });
+  }
 }
